@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import SearchForm from './components/SearchForm';
 import { NEWS_ARTICLES, STATS_DATA, PREPARATORY_EXPECTATIONS } from './data/mockData';
 
-// 🌐 حط رابط سيرفر الـ API بتاعك هنا بعد ما ترفعه لايف
+// 🌐 تم استبدال localhost برابط سيرفر Vercel اللايف الخاص بك مباشرة لمنع الـ Connection Refused
 const API_BASE_URL = 'https://daragati-backend.vercel.app';
 
 export default function App() {
