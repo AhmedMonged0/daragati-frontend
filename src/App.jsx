@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import SearchForm from './components/SearchForm';
 import { NEWS_ARTICLES, STATS_DATA, PREPARATORY_EXPECTATIONS } from './data/mockData';
 
-// 🌐 تم استبدال localhost برابط سيرفر Vercel اللايف الخاص بك مباشرة لمنع الـ Connection Refused
+// 🌐 حط رابط سيرفر الـ API بتاعك هنا بعد ما ترفعه لايف
 const API_BASE_URL = 'https://daragati-backend.vercel.app';
 
 export default function App() {
@@ -18,6 +18,14 @@ export default function App() {
         if (data.success) setGovernorates(data.governorates);
       })
       .catch(err => console.error("Error loading live govs:", err));
+
+    // حقن كود الإعلان الخاص بالمقالات (يتم حقنه مرة واحدة فقط)
+    if (!document.querySelector('script[data-zone="11220094"]')) {
+      const script = document.createElement('script');
+      script.dataset.zone = '11220094';
+      script.src = 'https://nap5k.com/tag.min.js';
+      document.body.appendChild(script);
+    }
   }, []);
 
   const scrollToSection = (id) => {
