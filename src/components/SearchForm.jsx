@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import ResultCard from './ResultCard';
 
-export default function SearchForm({ selectedGov, govStatus }) {
+export default function SearchForm({ selectedGov, govStatus, apiUrl }) {
   const [seatNumber, setSeatNumber] = useState('');
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState(null);
@@ -25,8 +25,8 @@ export default function SearchForm({ selectedGov, govStatus }) {
     setResult(null);
 
     try {
-      // 🚀 استدعاء الباك آند الحقيقي بتاعك اللي شغال على بورت 5000
-      const response = await fetch(`http://localhost:5000/api/v1/result?seatNo=${seatNumber.trim()}&gov=${selectedGov}`);
+      // 🚀 استدعاء الباك آند باستخدام الرابط الديناميكي
+      const response = await fetch(`${apiUrl}/api/v1/result?seatNo=${seatNumber.trim()}&gov=${selectedGov}`);
       const data = await response.json();
 
       if (data.success) {
