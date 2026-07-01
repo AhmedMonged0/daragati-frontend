@@ -3,26 +3,42 @@ import React from 'react';
 export default function ResultCard({ result }) {
   if (!result) return null;
 
+  // فلاتر المواد الأساسية والمواد غير المضافة للمجموع
   const mainSubjects = result.grades.filter(g => 
-    !g.subject.includes('الدينية') && !g.subject.includes('الفنية') && !g.subject.includes('الحاسب الآلي') && !g.subject.includes('المعتمد')
+    !g.subject.includes('الدينية') && 
+    !g.subject.includes('الفنية') && 
+    !g.subject.includes('الحاسب الآلي') && 
+    !g.subject.includes('المعتمد') &&
+    !g.subject.includes('التربية')
   );
 
   const extraSubjects = result.grades.filter(g => 
-    g.subject.includes('الدينية') || g.subject.includes('الفنية') || g.subject.includes('الحاسب الآلي')
+    g.subject.includes('الدينية') || 
+    g.subject.includes('الفنية') || 
+    g.subject.includes('الحاسب الآلي') ||
+    g.subject.includes('التربية')
   );
 
-  const totalScoreOnly = result.total.split('/')[0].trim();
+  // استخراج صافي المجموع الكلي بصيغة نظيفة
+  const totalScoreOnly = result.total ? result.total.split('/')[0].trim() : '0';
 
   return (
     <div className="mt-6 space-y-6 animate-fadeIn text-right" dir="rtl">
+      {/* البوكس الرئيسي لمعلومات الطالب والإجماليات */}
       <div className="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-lg flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <div className="space-y-2">
           <h3 className="text-xl font-black text-slate-900 tracking-tight">{result.name}</h3>
-          <div className="flex gap-2 text-xs font-bold">
-            <span className="bg-emerald-50 text-emerald-600 border border-emerald-100 px-3 py-1 rounded-lg">الحالة: {result.status}</span>
-            <span className="bg-slate-50 text-slate-600 border border-slate-100 px-3 py-1 rounded-lg">الفصل الدراسي الثاني</span>
+          <div className="flex flex-wrap gap-2 text-xs font-bold">
+            <span className="bg-emerald-50 text-emerald-600 border border-emerald-100 px-3 py-1 rounded-lg">
+              الحالة: {result.status || 'ناجح'}
+            </span>
+            <span className="bg-slate-50 text-slate-600 border border-slate-100 px-3 py-1 rounded-lg">
+              الفصل الدراسي الثاني
+            </span>
           </div>
         </div>
+
+        {/* بوكس الأرقام والمجموع الإجمالي */}
         <div className="flex items-center gap-6 bg-slate-50 border border-slate-200 p-4 rounded-xl w-full md:w-auto justify-between md:justify-start whitespace-nowrap">
           <div className="text-right">
             <span className="text-[10px] font-bold text-slate-400 block mb-0.5">النسبة المئوية</span>
@@ -40,6 +56,7 @@ export default function ResultCard({ result }) {
         </div>
       </div>
 
+      {/* بوكس المواد الأساسية التي تضاف للمجموع */}
       {mainSubjects.length > 0 && (
         <div className="space-y-3">
           <div className="border-r-4 border-blue-600 pr-2">
@@ -47,12 +64,12 @@ export default function ResultCard({ result }) {
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
             {mainSubjects.map((item, idx) => (
-              <div key={idx} className="bg-white border border-slate-200 p-4 rounded-xl flex justify-between items-center shadow-sm hover:border-blue-500 hover:shadow transition-all">
-                <span className="text-xs font-bold text-slate-800">{item.subject}</span>
+              <div key={idx} className="bg-white border border-slate-200 p-4 rounded-xl flex justify-between items-center shadow-sm hover:border-blue-500 hover:shadow transition-all group">
+                <span className="text-xs font-bold text-slate-800 group-hover:text-blue-600 transition-colors">{item.subject}</span>
                 <div className="font-mono text-xs font-bold bg-slate-50 border border-slate-100 px-2.5 py-1 rounded-lg text-slate-600 whitespace-nowrap">
                   <span className="text-blue-600 font-black text-sm">{item.score}</span>
                   <span className="text-slate-300 mx-1">/</span>
-                  <span>{item.max}</span>
+                  <span className="text-slate-500">{item.max || '50'}</span>
                 </div>
               </div>
             ))}
@@ -60,6 +77,7 @@ export default function ResultCard({ result }) {
         </div>
       )}
 
+      {/* بوكس المواد الإضافية التي لا تضاف للمجموع */}
       {extraSubjects.length > 0 && (
         <div className="space-y-3 pt-2">
           <div className="border-r-4 border-slate-400 pr-2">
@@ -72,7 +90,7 @@ export default function ResultCard({ result }) {
                 <div className="font-mono text-xs font-bold bg-white border border-slate-100 px-2.5 py-1 rounded-lg text-slate-400 whitespace-nowrap">
                   <span className="text-slate-600 font-bold">{item.score}</span>
                   <span className="text-slate-300 mx-1">/</span>
-                  <span>{item.max}</span>
+                  <span className="text-slate-400">{item.max || 'اجتياز'}</span>
                 </div>
               </div>
             ))}
