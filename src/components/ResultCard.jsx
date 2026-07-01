@@ -56,16 +56,16 @@ export default function ResultCard({ result }) {
         </div>
       </div>
 
-      {/* بوكس المواد الأساسية التي تضاف للمجموع */}
+      {/* بوكس المواد الأساسية (بوكسات كاملة العرض تحت بعضها) */}
       {mainSubjects.length > 0 && (
         <div className="space-y-3">
           <div className="border-r-4 border-blue-600 pr-2">
             <h4 className="text-xs font-black text-blue-600 uppercase tracking-wider">مواد تضاف للمجموع</h4>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+          <div className="space-y-2.5">
             {mainSubjects.map((item, idx) => (
               <div key={idx} className="bg-white border border-slate-200 p-4 rounded-xl flex justify-between items-center shadow-sm hover:border-blue-500 hover:shadow transition-all group">
-                <span className="text-xs font-bold text-slate-800 group-hover:text-blue-600 transition-colors">{item.subject}</span>
+                <span className="text-sm font-bold text-slate-800 group-hover:text-blue-600 transition-colors">{item.subject}</span>
                 <div className="font-mono text-xs font-bold bg-slate-50 border border-slate-100 px-2.5 py-1 rounded-lg text-slate-600 whitespace-nowrap">
                   <span className="text-blue-600 font-black text-sm">{item.score}</span>
                   <span className="text-slate-300 mx-1">/</span>
@@ -77,16 +77,16 @@ export default function ResultCard({ result }) {
         </div>
       )}
 
-      {/* بوكس المواد الإضافية التي لا تضاف للمجموع */}
+      {/* بوكس المواد الإضافية (بوكسات كاملة العرض تحت بعضها) */}
       {extraSubjects.length > 0 && (
         <div className="space-y-3 pt-2">
           <div className="border-r-4 border-slate-400 pr-2">
             <h4 className="text-xs font-black text-slate-400 uppercase tracking-wider">مواد لا تضاف للمجموع</h4>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+          <div className="space-y-2.5">
             {extraSubjects.map((item, idx) => (
               <div key={idx} className="bg-slate-50/50 border border-slate-200/70 p-4 rounded-xl flex justify-between items-center shadow-sm">
-                <span className="text-xs font-bold text-slate-500">{item.subject}</span>
+                <span className="text-sm font-bold text-slate-500">{item.subject}</span>
                 <div className="font-mono text-xs font-bold bg-white border border-slate-100 px-2.5 py-1 rounded-lg text-slate-400 whitespace-nowrap">
                   <span className="text-slate-600 font-bold">{item.score}</span>
                   <span className="text-slate-300 mx-1">/</span>
